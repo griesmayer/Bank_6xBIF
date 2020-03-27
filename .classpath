@@ -6,5 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="/home/thomas/Desktop/Code_2019/4akif/Bank_6xBIF/ojdbc6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
