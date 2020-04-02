@@ -1,0 +1,33 @@
+CREATE OR REPLACE PROCEDURE PROC_CT_GRIESMAYER_BANKACCOUNT IS
+   V_CNT NUMBER;
+BEGIN
+   SELECT COUNT(*) INTO V_CNT
+   FROM   ALL_TABLES
+   WHERE  OWNER = 'DEMO' AND
+          TABLE_NAME = 'GRIESMAYER_BANKACCOUNT';
+
+   IF V_CNT = 0 THEN
+      EXECUTE IMMEDIATE 'CREATE TABLE GRIESMAYER_BANKACCOUNT
+                         (
+                           	ACCOUNTNUMBER    INTEGER,
+                            OPENINGDATE      DATE,
+                            FIRSTNAME        VARCHAR(20),
+	                          AMOUNT           DECIMAL(10,2),
+	                          CREDITLIMIT      DECIMAL(10,2)
+                         )';
+      COMMIT;
+   END IF;
+
+   SELECT COUNT(*) INTO V_CNT
+   FROM   ALL_SEQUENCES
+   WHERE  SEQUENCE_OWNER = 'DEMO' AND
+          SEQUENCE_NAME = 'SEQ_GRIESMAYER_ACCOUNTNUMBER';
+
+   IF V_CNT = 0 THEN
+      EXECUTE IMMEDIATE 'CREATE SEQUENCE SEQ_GRIESMAYER_ACCOUNTNUMBER
+                         START WITH 100000
+                         INCREMENT BY 1
+                         CACHE      20';
+      COMMIT;
+   END IF;
+END PROC_CT_GRIESMAYER_BANKACCOUNT;
